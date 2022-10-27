@@ -1,0 +1,14 @@
+service: example-serverless
+
+frameworkVersion: '3'
+
+plugins:
+  - ../carbon-aware-serverless
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  hello:
+    handler: handler.hello

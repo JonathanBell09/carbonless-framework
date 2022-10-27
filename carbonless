@@ -1,0 +1,63 @@
+'use strict';
+
+const fs = require('fs');
+ 
+class Carbonless {    
+    constructor(serverless, options, { log }) {
+        this.serverless = serverless;
+        this.log = log;
+        this.provider = this.serverless.getProvider('aws');
+        this.hooks = {
+            'deploy:deploy': () => {
+                let functions = serverless.service.functions;
+                Object.values(functions).forEach((functionObj) => {
+                    this.copyLambdaToOtherRegions(functionObj);
+                    // this.createCarbonRouter(functionObj);
+                })
+            },
+        };
+    }
+    
+    copyLambdaToOtherRegions(functionObj){
+        // Todo get regions dynamically
+        const regions = ['eu-west-1'];
+        regions.forEach(async (region) => {
+            const account = await this.provider.getAccountInfo();
+            const lambdaExecutionARN = `arn:${account.partition}:iam::${account.accountId}:role/${this.provider.serverless.service.service}-${this.provider.getStage()}-${this.provider.getRegion()}-lambdaRole`;
+            const data = fs.readFileSync(this.serverless.service.package.artifact);
+            const params = {
+                FunctionName: functionObj.name,
+                Handler: functionObj.handler,
+                Role: lambdaExecutionARN,
+                Runtime: functionObj.runtime,
+                Code: {
+                  ZipFile: data
+                }
+              };
+    
+            this.provider.request(
+                'Lambda',
+                'createFunction',
+                params,
+                { region: region }
+            );
+            this.log.notice(`Copied Lambda to ${region}`)
+        });
+    }
+
+    // createCarbonRouter(functionObj){
+        // Todo
+        // const carbonAwareAPI = 'https://grnsft.org/hack22/api'
+        // res = await fetch(carbonAwareAPI + new URLSearchParams({
+        //     location: ['value']
+        // }));
+        // if (res.ok) {
+        //     text = res.text();
+        //     console.log(text);
+        // } else {
+        //     console.log(`HTTP error: ${res.status}`)
+        // }
+    // }
+}
+ 
+module.exports = Carbonless;

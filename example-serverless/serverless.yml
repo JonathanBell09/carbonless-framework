@@ -3,7 +3,7 @@ service: example-serverless
 frameworkVersion: '3'
 
 plugins:
-  - ../carbon-aware-serverless
+  - ../carbonless.js
 
 provider:
   name: aws
@@ -12,3 +12,5 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events: # All events associated with this function
+      - httpApi: 'GET /'

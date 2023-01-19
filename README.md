@@ -10,7 +10,7 @@ Serverless is already a great way to reduce your carbon emissions, but we can do
 
 ## Usage
 
-Add the Carbonless Framework to your project:
+Add the Carbonless Framework to your serverless project:
 
 ```
 npm install carbonless-framework

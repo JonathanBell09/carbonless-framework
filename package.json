@@ -1,5 +1,5 @@
 {
-  "name": "carbonless",
+  "name": "carbonless-framework",
   "version": "1.0.0",
   "main": "carbonless.js",
   "dependencies": {

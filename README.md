@@ -10,22 +10,22 @@ Serverless is already a great way to reduce your carbon emissions, but we can do
 
 ## Usage
 
-Add Carbonless to your project:
+Add the Carbonless Framework to your project:
 
 ```
-npm install carbonless
+npm install carbonless-framework
 ```
 
-Then inside your project's `serverless.yml` file add `carbonless` to your list of plugins:
+Then inside your project's `serverless.yml` file add `carbonless-framework` to your list of plugins:
 
 ```
 plugins:
-  - carbonless
+  - carbonless-framework
 ```
 
-Carbonless changes the default region from `us-east-1` to the region with the lowest carbon intensity. It will be overriden if you manually add a region to your `serverless.yml` or if you include region as a deploy option.
+The Carbonless Framework changes the default region from `us-east-1` to the region with the lowest carbon intensity. It will be overriden if you manually add a region to your `serverless.yml` or if you include region as a deploy option.
 
-To use Carbonless, please do not include the following in your `serverless.yml`:
+To use the Carbonless Framework, please do not include the following in your `serverless.yml`:
 
 ```
 provider:
@@ -40,7 +40,7 @@ Also do not include region when you deploy:
 sls deploy --region eu-west-1 
 ```
 
-If your `serverless.yml` file doesn't specify a region, and you don't specify a region when you deploy your serverless application, then Carbonless will select the greenest region for you using forecast data provided by https://www.watttime.org/
+If your `serverless.yml` file doesn't specify a region, and you don't specify a region when you deploy your serverless application, then the Carbonless Framework will select the greenest region for you using forecast data provided by https://www.watttime.org/
 
 ```
 The region with the lowest carbon intensity is eu-west-3
